@@ -1,37 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import unsplash from '../api/unsplash';
 import SearchBar from './SearchBar';
-import VideoList from './VideoList';
-import VideoDetail from './VideoDetail';
-import useVideos from '../hooks/useVideos';
+import ImageList from './ImageList';
 
-const App = () => {
 
-    const [selectedVideo, setSelectedVideo] = useState(null);
-    const [videos, search] = useVideos('buildings');
+class App extends React.Component{
 
-    useEffect(() => {
-        setSelectedVideo(videos[0]);
-    }, [videos]);
+    state = {
+        images: []
+    };
 
-    return (
-        <div className="ui container">
-            <SearchBar onFormSubmit={search} />
-            <div className="ui grid">
-                <div className="ui row">
-                    <div className="eleven wide column">
-                        <VideoDetail video={selectedVideo} />
-                    </div>
-                    <div className="five wide column">
-                        <VideoList 
-                            onVideoSelect={setSelectedVideo} 
-                            videos={videos} 
-                        />
-                    </div>
-                </div>
+    onSearchSubmit = async (term) => {
+
+        const response = await unsplash.get('/search/photos',{
+            params: {
+                query: term
+            }
+        });
+
+        this.setState({ images: response.data.results });
+    };
+
+    render(){
+        return (
+            <div className="ui container" style={{ marginTop: '10px'}}> 
+                <SearchBar onSubmit={this.onSearchSubmit}/> 
+                <ImageList images={this.state.images} />
             </div>
-        </div>
-    );
-
+        );
+    }
 }
+    
 
 export default App
