@@ -6,18 +6,16 @@ import useVideos from '../hooks/useVideos';
 
 const App = () => {
 
-    const KEY = 'AIzaSyD1Y5LwClbLPgGCfu2z7_tannHuYIRerrU';
+    const [selectedVideo, setSelectedVideo] = useState(null);
     const [videos, search] = useVideos('buildings');
 
     useEffect(() => {
-        setSelectedVideo(response.data.items[0]);
+        setSelectedVideo(videos[0]);
     }, [videos]);
-    
-    const [selectedVideo, setSelectedVideo] = useState(null);
 
     return (
         <div className="ui container">
-            <SearchBar onFormSubmit={onTermSubmit} />
+            <SearchBar onFormSubmit={search} />
             <div className="ui grid">
                 <div className="ui row">
                     <div className="eleven wide column">
