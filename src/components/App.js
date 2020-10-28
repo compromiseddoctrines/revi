@@ -19,8 +19,13 @@ const App = () => {
     };
 
     return (
-        <div className="ui container" style={{ marginTop: '10px'}}> 
+        <div className="ui container" style={{ marginTop: '40px'}}> 
+            <div class="ui two column centered grid">
+                <p className="ui"> <span className="bold"> Project:</span> Unsplash API created with ReactJS, Hooks, Axios, Semantic UI & Grid  </p>
+            </div>
+            <br/>
             <SearchBar onSubmit={onSearchSubmit}/> 
+            <br/>
             <ImageList images={images} />
         </div>
     );
