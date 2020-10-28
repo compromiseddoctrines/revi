@@ -1,41 +1,37 @@
-import React from 'react';
+import { image } from 'faker';
+import React, { useState, useEffect } from 'react';
 
-class ImageCard extends React.Component{
+const ImageCard = (props) => {
 
-    constructor(props){
-        super(props);
-        
-        this.state = { spans: 0 };
+    const [spans, setSpans] = useState(0);
+    const imageRef = React.createRef();
 
-        this.imageRef = React.createRef();
-    }
+    useEffect(() => {
 
-    componentDidMount(){
-        this.imageRef.current.addEventListener('load', this.setSpans);
-    }
+        imageRef.current.addEventListener('load', setDefaultSpans);
 
-    setSpans = () =>{
-        const height = this.imageRef.current.clientHeight;
+    },[]);
 
+    const setDefaultSpans = () =>{
+
+        const height = imageRef.current.clientHeight;
         const spans = Math.ceil(height / 10);
 
-        this.setState({ spans });
+        setSpans(spans);
     }
 
-    render(){
-
-        const { description, urls } = this.props.image;
+    const { description, urls } = props.image;
 
         return (
-            <div style={{ gridRowEnd: `span ${this.state.spans}` }}>
+            <div style={{ gridRowEnd: `span ${spans}` }}>
                 <img 
-                    ref={this.imageRef}
+                    ref={imageRef}
                     alt={description}
                     src={urls.regular}
                 />
             </div>
         );
-    }
+
 }
 
 export default ImageCard

@@ -18,12 +18,19 @@ class SearchBar extends React.Component{
                 <form className="ui form" onSubmit={this.onFormSubmit}>
                     <div className="field">
                         <label>Search for Image with Unsplash API</label>
-                        <input 
-                            type="text" 
-                            value={this.state.term}
-                            onChange={(e) => this.setState({term: e.target.value})}
-                            placeholder="Press Enter to Search" 
-                        />
+                        <div class="ui category search">
+                            <div class="ui icon input">
+                                <input 
+                                    type="text" 
+                                    className="prompt"
+                                    value={this.state.term}
+                                    onChange={(e) => this.setState({term: e.target.value})}
+                                    placeholder="Press Enter to Search" 
+                                />
+                                <i class="search icon"></i>
+                            </div>
+                        </div>
+                        
                     </div>
                 </form>
             </div>
